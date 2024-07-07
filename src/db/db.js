@@ -1,8 +1,8 @@
 const mysql = require('mysql2/promise');
 const dbuser = process.env.DB_USER || 'root';
 const dbhost = process.env.DB_HOST || 'localhost'; 
-const dbpassword = process.env.DB_PASSWORD || '';
-const dbport = process.env.DB_PORT || 3306;
+const dbpassword = process.env.DB_PASSWORD || '123456';
+const dbport = process.env.DB_PORT || 3307;
 const dbdatabaseName = process.env.DB_NAME || 'kinesiologia_db';
 
 
