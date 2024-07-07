@@ -1,12 +1,18 @@
 const mysql = require('mysql2/promise');
+const dbuser = process.env.DB_USER || 'root';
+const dbhost = process.env.DB_HOST || 'localhost'; 
+const dbpassword = process.env.DB_PASSWORD || '';
+const dbport = process.env.DB_PORT || 3306;
+const dbdatabaseName = process.env.DB_NAME || 'kinesiologia_db';
+
 
 async function createDatabase(databaseName) {
     try {
         const connection = await mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: '123456',
-            port: 3307
+            host: dbhost,
+            user: dbuser,
+            password: dbpassword,
+            port: dbport
         });
         await connection.query(`CREATE DATABASE IF NOT EXISTS ${databaseName}`);
         console.log(`Base de datos ${databaseName} asegurada - Creada exitosamente`);
@@ -48,7 +54,7 @@ async function listDatabases(connection) {
 
 // Función para inicializar la base de datos
 async function initializeDatabase() {
-    const databaseName = 'kinesiologia_db';
+    const databaseName = dbdatabaseName;
     let connection;
     
     try {
@@ -57,10 +63,10 @@ async function initializeDatabase() {
 
         // Crear una nueva conexión utilizando la base de datos
         connection = await mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: '123456',
-            port: 3307,
+            host: dbhost,
+            user: dbuser,
+            password: dbpassword,
+            port: dbport,
             database: databaseName
         });
 
@@ -156,4 +162,4 @@ async function initializeDatabase() {
     }
 }
 
-module.exports = { initializeDatabase };
+module.exports = { initializeDatabase,dbhost,dbuser,dbpassword,dbport,dbdatabaseName };
